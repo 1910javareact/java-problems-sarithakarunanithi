@@ -1,8 +1,11 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -31,9 +34,18 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+
+		String acronym = "";
+		acronym = acronym.replaceAll("[ \\,.!]", "");
+		for(char c : phrase.toCharArray()) {
+			if(Character.isUpperCase(c)) {
+				acronym = acronym + c;
+			}
+		}
+		
+		return acronym;
+		
+	  }
 
 	/**
 	 * 3. Determine if a triangle is equilateral, isosceles, or scalene. An
@@ -85,18 +97,32 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			
+			if(sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			}else {
+			    return false;
+			}
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			
+			if(sideOne == sideTwo || sideTwo == sideThree || sideThree == sideOne) {
+				return true;		
+			}else {
+			
 			return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			
+			if(sideOne != sideTwo && sideTwo != sideThree) {
+				return true;
+			}else {
+			
+			    return false;
+			}
 		}
 
 	}
@@ -117,9 +143,67 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		int point =0;
+		
+		for(int i= 0 ; i<string.length();i++) {
+		
+			char ch = string.toLowerCase().charAt(i);
+				
+		switch(ch) {
+		case 'a':
+		case 'e':
+		case 'i':
+		case 'o':
+		case 'u':
+		case 'l':
+		case 'n':
+		case 'r':
+		case 's':
+		case 't': 
+			point = point + 1;
+			break;
+			
+		case 'd':
+		case 'g':
+		    point = point + 2;
+			break;
+			
+		case 'b':
+		case 'c':
+		case 'm':
+		case 'p':
+			point = point + 3;
+			break;	
+		
+		case 'f':
+		case 'h':
+		case 'v':
+		case 'w':
+		case 'y': 
+		    point = point + 4;
+			break;
+			
+		case 'k': 
+		    point = point + 5;
+			break;
+			
+		case 'j':
+		case 'x':	
+		    point = point + 8;
+			break;
+			
+		case 'q':
+		case 'z':	
+		    point = point + 10;
+			break;
+			
+		default : break;
+			
+		}
 	}
+		return point;
+}
 
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -247,8 +331,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+	     String newWord;
+
+	                    if (string.charAt(0)=='a' ||string.charAt(0)=='A' 
+	            		|| string.charAt(0)=='e' || string.charAt(0)=='E' 
+	            		|| string.charAt(0)=='i' || string.charAt(0)=='I' 
+	            		|| string.charAt(0)=='o' || string.charAt(0)=='O' 
+	            		|| string.charAt(0)=='u' || string.charAt(0)=='U')
+
+	                {
+	            	   newWord= string + "ay";
+	            	   return newWord;
+
+	                }else {
+	                        newWord=string.substring(1) + string.charAt(0) + "ay";
+	                        return newWord;
+	                }		
 	}
 
 	/**
@@ -268,7 +367,35 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+		// creating variables
+		
+			//	input = 153;
+				int temp = input;
+				int total = 0;
+				int remainder = 0;
+			//	int n = 0;
+				
+				 // Getting last digit, remaining digits and finding the cube
+				
+			     while(input > 0) {
+				 remainder = input % 10; 
+				 input = input / 10;   
+			
+				 total = total + remainder * remainder * remainder;
+				}
+			     
+			     int length = String.valueOf(temp).length();
+			     if(temp == length) {
+			    	 System.out.println(temp * remainder);
+			     }
+			     
+			     if(temp == total) {
+			    	 return true;
+			     }else {
+			    	 return false;
+			     }	
+		
 	}
 
 	/**
@@ -282,8 +409,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+         List<Long> number = new ArrayList<>();
+		
+		
+		    while(l != 1) {	
+		     	long i = 2;
+			
+			
+			while(l % i != 0) {
+				i = i + 1L;
+			}
+					
+			l = l/i;
+			number.add(i);
+		}
+		
+		return number;
 	}
 
 	/**
@@ -434,8 +576,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String pangram = "";
+	
+		
+		Set<Character> ch = new HashSet<>();
+		pangram = string.toLowerCase();
+		pangram = string.replaceAll("[ \\,.!]", "");
+		
+		for(char c : pangram.toCharArray()) {
+			ch.add(c);
+		}
+		if(ch.size() == 26) {
+			return true;
+		}else {
+			return false;
+		}
+			
 	}
 
 	/**
@@ -448,6 +604,9 @@ public class EvaluationService {
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
 		// TODO Write an implementation for this method declaration
+		
+		
+		
 		return null;
 	}
 
@@ -539,7 +698,39 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		int num1 = Integer.parseInt(string);
+		int num2 = Integer.parseInt(string);
+		String add = "+";
+		
+		
+		int sum = 0;
+		System.out.println(num1 + num2);
+    	System.out.println(num1 - num2);
+    	System.out.println(num1 * num2);
+    	System.out.println(num1 / num2);
+		
 		return 0;
+	
+/*	String num1 = "-1";
+		String num2 = "2";
+		int sum;
+		
+		int num1Convert = Integer.parseInt(num1);
+		int num2Convert = Integer.parseInt(num2);
+		
+		System.out.println(sum = num1Convert + num2Convert);
+		System.out.println(sum = num1Convert - num2Convert);
+		try {
+		     sum = num1Convert * num2Convert;
+		    
+		}catch (ArithmeticException e) {
+			 System.out.println(sum = num1Convert * num2Convert);
+		}
+		System.out.println(sum = num1Convert / num2Convert);
+		
+		return sum;
+	*/	
+		
 	}
-
 }
